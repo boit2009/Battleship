@@ -18,6 +18,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -41,13 +44,22 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Instantiate the RequestQueue.
 
-                String url ="https://localhost:8080/api/profile/1";
+                String url ="http://192.168.31.132:8080/api/profile/1";
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 Log.i("tag", response);
+                                JSONObject jObject = null;
+                                try {
+                                    jObject = new JSONObject(response);
+                                    textView.setText(jObject.getString("name"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
                             }
+
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -55,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 queue.add(stringRequest);
+
             }
         });
     }
