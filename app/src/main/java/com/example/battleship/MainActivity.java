@@ -2,12 +2,14 @@ package com.example.battleship;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.provider.Settings.Secure;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -40,8 +42,14 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
 
         final Button button = findViewById(R.id.button);
+        String ID = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        textView.setText("Device ID: "+ ID);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+
+
                 // Instantiate the RequestQueue.
 
                 String url ="http://192.168.31.132:8080/api/profile/1";
