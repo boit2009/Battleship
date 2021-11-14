@@ -1,7 +1,9 @@
-package com.example.battleship;
+package com.example.battleship.leadboard;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.battleship.R;
 
 public class LeaderBoard extends AppCompatActivity {
 

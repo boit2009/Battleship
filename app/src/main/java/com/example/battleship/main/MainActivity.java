@@ -1,33 +1,28 @@
-package com.example.battleship;
+package com.example.battleship.main;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.provider.Settings.Secure;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.battleship.grid.GridActivity;
+import com.example.battleship.leadboard.LeaderBoard;
+import com.example.battleship.profile.Profile;
+import com.example.battleship.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -72,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("tag", error.getMessage());
             }
         });
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(25000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(stringRequest);
 
 
@@ -85,19 +81,22 @@ public class MainActivity extends AppCompatActivity {
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                try {
+                Intent intent = new Intent(getApplicationContext(), GridActivity.class);
+                startActivity(intent);
+                /*try {
                     textView.setText(jObject.getString("name"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
+                }*/
 
 
             }
+
         });
         leaderBoardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(getApplicationContext(),LeaderBoard.class);
+                Intent intent= new Intent(getApplicationContext(), LeaderBoard.class);
                 startActivity(intent);
             }
         });

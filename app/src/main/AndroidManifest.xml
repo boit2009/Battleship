@@ -15,13 +15,16 @@
         android:theme="@style/Theme.Battleship"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".LeaderBoard"
+            android:name=".grid.GridActivity"
             android:exported="false" />
         <activity
-            android:name=".Profile"
+            android:name=".leadboard.LeaderBoard"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".profile.Profile"
+            android:exported="false" />
+        <activity
+            android:name=".main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

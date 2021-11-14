@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:orientation="vertical"
+    tools:context=".grid.GridActivity">
+    <LinearLayout
+        android:id="@+id/linear"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:weightSum="1">
+        <TextView
+            android:id="@+id/t1"
+            android:layout_width="0dp"
+            android:text="PROBA"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33">
+
+        </TextView>
+        <Button
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33">
+
+        </Button>
+        <TextView
+            android:id="@+id/t3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33">
+
+        </TextView>
+    </LinearLayout>
+    <GridView
+        android:id="@+id/myGrid"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/grey"
+        android:layout_weight="0.45"
+        android:stretchMode="spacingWidth"
+        android:gravity="center"
+        android:columnWidth="25dp"
+        android:numColumns="10"/>
+    <GridView
+        android:id="@+id/opponentGrid"
+        android:layout_width="match_parent"
+        android:stretchMode="spacingWidth"
+        android:gravity="center"
+        android:layout_height="0dp"
+        android:layout_weight="0.45"
+        android:columnWidth="25dp"
+        android:numColumns="10"/>
+
+
+</LinearLayout>

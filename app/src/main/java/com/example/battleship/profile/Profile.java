@@ -1,6 +1,7 @@
-package com.example.battleship;
+package com.example.battleship.profile;
 
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.battleship.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,7 +40,9 @@ public class Profile extends AppCompatActivity {
         saveButton.setVisibility(View.GONE);
         //get the data from server
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://192.168.31.132:8080/api/profile/1";
+        String ID = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        String url ="http://192.168.31.132:8080/api/profile/"+ID;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
