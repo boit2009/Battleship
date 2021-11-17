@@ -1,6 +1,7 @@
 package com.example.battleship.network;
 
 import android.content.Context;
+import android.provider.Settings;
 import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -16,20 +17,22 @@ import org.json.JSONObject;
 
 public class NetworkUtil {
 
-    public static void post(Context context, VolleyCallback callback){
+    public static void post(Context context, VolleyCallback callback, int position){
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url ="http://192.168.31.132:8080/api/profile/1";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+
+        String url ="http://192.168.31.132:8080/api/play/shoot?userId=114c7684a88bbcc2&fieldId="+String.valueOf(position);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         //    Log.i("tag", response);
                         try {
                             JSONObject jObject = new JSONObject(response);
+
                             // JsonObject -> List<Filed>
-                            callback.onSuccess(response);
+                            callback.onSuccess(jObject);
                         } catch (JSONException e) {
-                            callback.onSuccess(e.getMessage());
+                           // callback.onSuccess(e.getMessage());
                             e.printStackTrace();
                         }
                     }
@@ -42,7 +45,7 @@ public class NetworkUtil {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                callback.onSuccess(error.getMessage());
+               // callback.onSuccess(error.getMessage());
                 Log.i("tag", error.getMessage());
             }
         });

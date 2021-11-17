@@ -20,6 +20,7 @@ import com.example.battleship.grid.GridActivity;
 import com.example.battleship.leadboard.LeaderBoard;
 import com.example.battleship.profile.Profile;
 import com.example.battleship.R;
+import com.example.battleship.rooms.Rooms;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,11 +44,28 @@ public class MainActivity extends AppCompatActivity {
         final Button button = findViewById(R.id.button);
         final Button profileButton = findViewById(R.id.profilebutton);
         final Button leaderBoardButton = findViewById(R.id.leaderboard);
+        final Button singlePlayerButton = findViewById(R.id.singleplayerbutton);
+        final Button multiPlayerButton = findViewById(R.id.multiplayergamebutton);
+        multiPlayerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Rooms.class);
+                startActivity(intent);
+            }
+        });
+
+        singlePlayerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), GridActivity.class);
+                startActivity(intent);
+            }
+        });
 
         textView.setText("Device ID: "+ ID);
 
         //get the user's data with http request
-        RequestQueue queue = Volley.newRequestQueue(this);
+        /*RequestQueue queue = Volley.newRequestQueue(this);
         String url ="http://192.168.31.132:8080/api/profile/1";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -68,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(25000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        queue.add(stringRequest);
+        queue.add(stringRequest);*/
 
 
         profileButton.setOnClickListener(new View.OnClickListener() {

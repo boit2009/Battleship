@@ -1,5 +1,8 @@
 package com.example.battleship.network;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public interface VolleyCallback {
-    void onSuccess(String result);
+    void onSuccess(JSONObject result) throws JSONException;
 }

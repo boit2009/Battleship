@@ -19,4 +19,8 @@ public class Field {
     public void setId(int id) {
         this.id = id;
     }
+
+    public void setState(State state) {
+        this.state = state;
+    }
 }

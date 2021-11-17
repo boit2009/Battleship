@@ -6,12 +6,18 @@
     android:orientation="vertical"
     android:weightSum="1"
     android:layout_height="match_parent"
-    tools:context=".leadboard.LeaderBoard">
-
+    tools:context=".rooms.Rooms">
+    <Button
+        android:id="@+id/createroombutton"
+        android:layout_width="match_parent"
+        android:text="Create Room"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/leaderecycleview"
+        android:id="@+id/recycleview"
         android:layout_width="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="0.9"
         android:layout_height="0dp" />
 </LinearLayout>

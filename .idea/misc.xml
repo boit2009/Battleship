@@ -5,11 +5,16 @@
       <map>
         <entry key="..\:/AndroidStudioProjects/Battleship/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
         <entry key="..\:/AndroidStudioProjects/Battleship/app/src/main/res/xml/network_security_config.xml" value="0.20520833333333333" />
+        <entry key="..\:/project1/app/src/main/res/layout-w936dp/content_scrolling.xml" value="0.103515625" />
         <entry key="..\:/project1/app/src/main/res/layout/activity_grid.xml" value="0.17844202898550723" />
         <entry key="..\:/project1/app/src/main/res/layout/activity_leader_board.xml" value="0.17300724637681159" />
         <entry key="..\:/project1/app/src/main/res/layout/activity_main.xml" value="0.13020833333333334" />
         <entry key="..\:/project1/app/src/main/res/layout/activity_profile.xml" value="0.17300724637681159" />
+        <entry key="..\:/project1/app/src/main/res/layout/activity_rooms.xml" value="0.12395833333333334" />
+        <entry key="..\:/project1/app/src/main/res/layout/activity_scrolling.xml" value="0.13802083333333334" />
+        <entry key="..\:/project1/app/src/main/res/layout/leaderboard_room.xml" value="0.16576086956521738" />
         <entry key="..\:/project1/app/src/main/res/layout/recyclerview_row.xml" value="0.13020833333333334" />
+        <entry key="..\:/project1/app/src/main/res/layout/room_item.xml" value="0.13802083333333334" />
         <entry key="..\:/project1/app/src/main/res/layout/track_field_item.xml" value="0.17844202898550723" />
       </map>
     </option>

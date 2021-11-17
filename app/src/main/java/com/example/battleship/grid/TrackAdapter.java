@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import com.example.battleship.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 public class TrackAdapter extends BaseAdapter {
@@ -39,8 +42,20 @@ public class TrackAdapter extends BaseAdapter {
         return fields.get(i).getId();
     }
 
-    public void updateTrack(List<Field> fields){
-        this.fields = fields;
+    public void updateTrack(JSONObject jObject) throws JSONException {
+        jObject.getString("player1");
+        System.out.println(jObject.toString());
+        String field= jObject.getString("field1");
+
+        String state= jObject.getString("gridstate1");
+        State state1= null;
+        switch (state){
+            case "HIT":
+                state1=State.hit;
+
+        }
+        fields.get(Integer.valueOf(field)).setState(state1);
+        Log.i("tag", "siker");
         notifyDataSetChanged();
     }
 
@@ -48,10 +63,15 @@ public class TrackAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflater.inflate(R.layout.track_field_item, null);
         TextView field = (TextView) view.findViewById(R.id.field);
+
         field.setBackgroundColor(Color.rgb(0,0,255));
         field.setText(String.valueOf(getItem(i).getId()));
         Log.i("adsAG", String.valueOf(field.getHeight()));
         // getColor(getItem(i).getState())
+        if(getItem(i).getState()==State.hit){
+            field.setBackgroundColor(Color.rgb(0,255,0));
+            field.setText("h");
+        }
         return view;
     }
 
