@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
         final TextView textView = findViewById(R.id.textView2);
         final Button button = findViewById(R.id.button);
         final Button profileButton = findViewById(R.id.profilebutton);
-        final Button leaderBoardButton = findViewById(R.id.leaderboard);
+        final Button leaderBoardRobotButton = findViewById(R.id.leaderboardrobot);
+        final Button leaderBoardUserButton = findViewById(R.id.leaderboarduser);
         final Button singlePlayerButton = findViewById(R.id.singleplayerbutton);
         final Button multiPlayerButton = findViewById(R.id.multiplayergamebutton);
         multiPlayerButton.setOnClickListener(new View.OnClickListener() {
@@ -111,10 +112,19 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-        leaderBoardButton.setOnClickListener(new View.OnClickListener() {
+        leaderBoardRobotButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(getApplicationContext(), LeaderBoard.class);
+                intent.putExtra("mode", "robot");
+                startActivity(intent);
+            }
+        });
+        leaderBoardUserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(getApplicationContext(), LeaderBoard.class);
+                intent.putExtra("mode", "user");
                 startActivity(intent);
             }
         });

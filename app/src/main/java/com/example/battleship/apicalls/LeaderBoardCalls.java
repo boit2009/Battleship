@@ -25,7 +25,7 @@ public class LeaderBoardCalls {
     static public void getLeaderBoard(String mode, Context context, VolleyCallbackPlayer volleyCallbackPlayer){
         ArrayList<Player>players= new ArrayList();
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url ="http://192.168.167.85:8080/api/leaderboard/"+mode;
+        String url ="http://192.168.31.132:8080/api/leaderboard/"+mode;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override

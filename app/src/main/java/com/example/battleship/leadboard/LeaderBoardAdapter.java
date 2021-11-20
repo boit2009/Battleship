@@ -20,9 +20,11 @@ import java.util.ArrayList;
 public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.MyViewHolder> {
     private Context context;
     private ArrayList<Player> arrayList;
-    public LeaderBoardAdapter(Context c, ArrayList<Player> arrayList){
+    private String mode;
+    public LeaderBoardAdapter(Context c, ArrayList<Player> arrayList, String mode){
         context=c;
         this.arrayList=arrayList;
+        this.mode= mode;
 
 
     }
@@ -36,7 +38,10 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.username.setText(arrayList.get(position).getName());
-        holder.score.setText(String.valueOf(arrayList.get(position).getWinvsUser()));
+        if(mode.equals("user"))
+            holder.score.setText(String.valueOf(arrayList.get(position).getWinvsUser()));
+        else
+            holder.score.setText(String.valueOf(arrayList.get(position).getWinvsRobot()));
 
     }
 

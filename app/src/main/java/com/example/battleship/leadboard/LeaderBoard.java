@@ -1,5 +1,6 @@
 package com.example.battleship.leadboard;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +22,7 @@ public class LeaderBoard extends AppCompatActivity implements VolleyCallbackPlay
     private ArrayList<Player> players;
     private RecyclerView recyclerView;
     private LeaderBoardAdapter leaderBoardAdapter;
+    private String mode="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +30,15 @@ public class LeaderBoard extends AppCompatActivity implements VolleyCallbackPlay
         setContentView(R.layout.activity_leader_board);
         recyclerView= findViewById(R.id.leaderecycleview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-       LeaderBoardCalls.getLeaderBoard("user",this, LeaderBoard.this::onSuccess);
+        Intent intent = getIntent();
+        mode = intent.getStringExtra("mode");
+        LeaderBoardCalls.getLeaderBoard(mode,this, LeaderBoard.this::onSuccess);
 
     }
 
     @Override
     public void onSuccess(ArrayList<Player> players) throws JSONException {
-        leaderBoardAdapter=new LeaderBoardAdapter(this, players);
+        leaderBoardAdapter=new LeaderBoardAdapter(this, players,mode);
         recyclerView.setAdapter(leaderBoardAdapter);
     }
 }
