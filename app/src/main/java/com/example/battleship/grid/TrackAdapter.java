@@ -10,10 +10,13 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.battleship.R;
+import com.example.battleship.leadboard.Player;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class TrackAdapter extends BaseAdapter {
@@ -24,7 +27,6 @@ public class TrackAdapter extends BaseAdapter {
     public TrackAdapter(Context context, List<Field> fields){
         this.context = context;
         this.fields = fields;
-        Log.i("adsAG", String.valueOf(fields.size()));
         inflater = (LayoutInflater.from(context));
     }
     @Override
@@ -42,20 +44,22 @@ public class TrackAdapter extends BaseAdapter {
         return fields.get(i).getId();
     }
 
-    public void updateTrack(JSONObject jObject) throws JSONException {
-        jObject.getString("player1");
-        System.out.println(jObject.toString());
-        String field= jObject.getString("field1");
-
-        String state= jObject.getString("gridstate1");
-        State state1= null;
-        switch (state){
-            case "HIT":
-                state1=State.hit;
-
+    public void updateTrack(JSONArray asD) throws JSONException {
+       // JSONArray asD = (JSONArray) jObject.get("field");
+        for(int i=0;i<asD.length();i++){
+            String state= (String) asD.get(i);
+            if(state.equals("WATER"))
+                fields.get(i).setState(State.water);
+            if(state.equals("SUNKEN"))
+                fields.get(i).setState(State.sunk);
+            if(state.equals("HIT"))
+                fields.get(i).setState(State.hit);
+            if(state.equals("MISS"))
+                fields.get(i).setState(State.missed);
+            if(state.equals("SHIP"))
+                fields.get(i).setState(State.ship);
         }
-        fields.get(Integer.valueOf(field)).setState(state1);
-        Log.i("tag", "siker");
+
         notifyDataSetChanged();
     }
 
@@ -69,9 +73,26 @@ public class TrackAdapter extends BaseAdapter {
         Log.i("adsAG", String.valueOf(field.getHeight()));
         // getColor(getItem(i).getState())
         if(getItem(i).getState()==State.hit){
-            field.setBackgroundColor(Color.rgb(0,255,0));
-            field.setText("h");
+            field.setBackgroundColor(Color.rgb(255,0,0));
+            field.setText("H");
         }
+        if(getItem(i).getState()==State.ship) {
+            field.setBackgroundColor(Color.rgb(220,220,220));
+            field.setText("S");
+        }
+        if(getItem(i).getState()==State.water) {
+            field.setBackgroundColor(Color.rgb(0,0,255));
+            field.setText("W");
+        }
+        if(getItem(i).getState()==State.sunk) {
+            field.setBackgroundColor(Color.rgb(203, 129, 0));
+            field.setText("S");
+        }
+        if(getItem(i).getState()==State.missed) {
+            field.setBackgroundColor(Color.rgb(2, 0, 5));
+            field.setText("M");
+        }
+
         return view;
     }
 

@@ -59,37 +59,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), GridActivity.class);
+                intent.putExtra("ID",ID);
+                intent.putExtra("mode","robot");
                 startActivity(intent);
             }
         });
-
         textView.setText("Device ID: "+ ID);
-
-        //get the user's data with http request
-        /*RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://192.168.31.132:8080/api/profile/1";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                    //    Log.i("tag", response);
-                        try {
-                            jObject = new JSONObject(response);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i("tag", error.getMessage());
-            }
-        });
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(25000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        queue.add(stringRequest);*/
-
-
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

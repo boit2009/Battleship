@@ -38,7 +38,7 @@
         </TextView>
     </LinearLayout>
     <GridView
-        android:id="@+id/myGrid"
+        android:id="@+id/opponentGrid"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/grey"
@@ -48,7 +48,7 @@
         android:columnWidth="25dp"
         android:numColumns="10"/>
     <GridView
-        android:id="@+id/opponentGrid"
+        android:id="@+id/myGrid"
         android:layout_width="match_parent"
         android:stretchMode="spacingWidth"
         android:gravity="center"

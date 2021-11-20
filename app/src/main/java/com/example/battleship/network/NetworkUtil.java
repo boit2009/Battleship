@@ -30,7 +30,7 @@ public class NetworkUtil {
                             JSONObject jObject = new JSONObject(response);
 
                             // JsonObject -> List<Filed>
-                            callback.onSuccess(jObject);
+                            callback.onSuccess(jObject,"start");
                         } catch (JSONException e) {
                            // callback.onSuccess(e.getMessage());
                             e.printStackTrace();
