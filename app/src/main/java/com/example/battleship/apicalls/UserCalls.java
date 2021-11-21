@@ -197,7 +197,7 @@ public class UserCalls {
     }
     static public void leaveGame(Context context,String ID){
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url ="http://192.168.31.132:8080/api//leaveGame?userId="+ID;
+        String url ="http://192.168.31.132:8080/api/leaveGame?userId="+ID;
         StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url,
                 new Response.Listener<String>() {
                     @Override
@@ -208,7 +208,7 @@ public class UserCalls {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i("tag", error.getMessage());
+               // Log.i("tag", error.getMessage());
             }
         });
         queue.add(stringRequest);

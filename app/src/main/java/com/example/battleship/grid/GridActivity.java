@@ -33,6 +33,39 @@ import java.util.List;
 import java.util.function.BinaryOperator;
 
 public class GridActivity extends AppCompatActivity implements VolleyCallback {
+    @Override
+    public void onPause() {
+        //Log.i("valami","pause");
+        if(gameState.equals(GameState.host_waiting)) {
+            UserCalls.leaveRoom(getApplicationContext(),ID);
+            Log.i("valami","pause");
+        }
+        else{
+            if(!end_game){
+                UserCalls.leaveGame(getApplicationContext(),ID);
+            }
+
+        }
+
+        super.onPause();
+
+    }
+    @Override
+    public void onResume(){
+        Log.i("valami","onresume");
+
+
+        if(resumeCounter==1){
+            Log.i("valami","onresume2");
+
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        resumeCounter++;
+        super.onResume();
+
+    }
 
     @Override
     public void onBackPressed() {
@@ -49,7 +82,7 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             UserCalls.leaveGame(getApplicationContext(),ID);
-
+                            end_game=true;
                             finish();
                         }
 
@@ -66,6 +99,8 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
     private Button readyButton,leaveButton, newShipButton;
     private TrackAdapter myTrackAdapter,opponentTrackAdapter;
     private String mode,ID;
+    private boolean end_game=false;
+    private int resumeCounter;
     private LinearLayout linearLayout,mainLienarLayout;
     private ArrayList<Integer>disabledFields;
 
@@ -98,6 +133,7 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grid);
+        resumeCounter=0;
         disabledFields= new ArrayList();
         Intent intent = getIntent();
         mode= intent.getStringExtra("mode");
