@@ -23,6 +23,32 @@ import java.util.Iterator;
 
 public class UserCalls {
 
+    static public void leaveRoom(Context context,String ID){
+        ArrayList<Player> players= new ArrayList();
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url ="http://192.168.31.132:8080/api/leaveRoom?userId="+ID;
+        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.i("calls", response.toString());
+                    }
+
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("calls", "valamivolley");
+                Log.i("calls", error.toString());
+
+            }
+        });
+
+        queue.add(stringRequest);
+        Log.i("calls", "valamisemmi");
+
+
+    }
     static public void getRooms(Context context, VolleyCallbackArrayVersion volleyCallback){
         ArrayList<Player> players= new ArrayList();
         RequestQueue queue = Volley.newRequestQueue(context);

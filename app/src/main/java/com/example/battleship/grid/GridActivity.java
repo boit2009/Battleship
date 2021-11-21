@@ -1,7 +1,9 @@
 package com.example.battleship.grid;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,9 +16,11 @@ import android.widget.TextView;
 
 import com.example.battleship.apicalls.PlayCalls;
 import com.example.battleship.apicalls.UserCalls;
+import com.example.battleship.main.MainActivity;
 import com.example.battleship.network.NetworkUtil;
 import com.example.battleship.R;
 import com.example.battleship.network.VolleyCallback;
+import com.example.battleship.rooms.Rooms;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +29,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.BinaryOperator;
 
 public class GridActivity extends AppCompatActivity implements VolleyCallback {
 
@@ -75,6 +80,15 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
         newShipButton = (Button) findViewById(R.id.newshipbutton);
         leaveButton = (Button) findViewById(R.id.leavebutton);
         readyButton = (Button) findViewById(R.id.readybutton);
+        leaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserCalls.leaveRoom(getApplicationContext(),ID);
+                Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent1);
+                finish();
+            }
+        });
         newShipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,6 +116,8 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
                     opponentGrid.setEnabled(false);
                     LinearLayout linearLayout = (LinearLayout) view;
                     TextView textView = (TextView) linearLayout.getChildAt(0);
+                    textView.setText("?");
+                   // textView.setBackgroundColor();
                     PlayCalls.shoot(getApplicationContext(),GridActivity.this::onSuccess,ID,position);
                     disabledFields.add(position);
                 }
@@ -136,7 +152,9 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
             myTrackAdapter.updateTrack(asD);
 
         }
-        if(mode.equals("shoot") ||mode.equals("ready") ){
+        if(mode.equals("shoot") || mode.equals("ready") ){
+            boolean finished=false;
+            String winner="";
             if(mode.equals("ready")){
                 setGameState(GameState.in_game);
             }
@@ -144,9 +162,16 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
             boolean nextFieldIsMyField=false;
             while (keys.hasNext()) {
                 String key = keys.next();
+                if (result.get(key) instanceof Boolean) {
+                    finished =(Boolean)result.get(key);
+                }
                 if (result.get(key) instanceof String) {
+                    if(key.equals("winner")){
+                        winner =(String) result.get(key);
+                    }
                   //  Log.i("valami",(String) result.get(key));
-                  //  Log.i("valami",ID);
+                  //  Log.i("valami",key);
+                  //  Log.i("valami",(String) result.get(key));
                     if(result.get(key).equals(ID)){
                         nextFieldIsMyField=true;
                     }
@@ -170,6 +195,24 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
                 }
                 System.out.println(result.get("player1").toString());
             }
+            if(finished){
+                new AlertDialog.Builder(GridActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("GAME OVER")
+                        .setMessage(winner+ " won")
+                        .setPositiveButton(getResources().getString(R.string.backtomenu), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                startActivity(new Intent(GridActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                finish();
+                            }
+
+                        })
+                        .show();
+            }
+
+
         }
 
         opponentGrid.setEnabled(true);

@@ -55,6 +55,7 @@ public class Rooms extends AppCompatActivity implements VolleyCallbackArrayVersi
                 intent.putExtra("mode","newRoom");
                 intent.putExtra("ID",ID);
                 startActivity(intent);
+                finish();
             }
         });
         UserCalls.getRooms(getApplicationContext(),Rooms.this::onSuccess);
