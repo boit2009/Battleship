@@ -14,28 +14,30 @@
         android:layout_height="0dp"
         android:layout_weight="0.1"
         android:weightSum="1">
-        <TextView
-            android:id="@+id/t1"
-            android:layout_width="0dp"
-            android:text="PROBA"
-            android:layout_height="match_parent"
-            android:layout_weight="0.33">
-
-        </TextView>
         <Button
-            android:id="@+id/button"
+            android:id="@+id/leavebutton"
             android:layout_width="0dp"
+            android:text="Leave game"
             android:layout_height="match_parent"
             android:layout_weight="0.33">
 
         </Button>
-        <TextView
-            android:id="@+id/t3"
+        <Button
+            android:id="@+id/newshipbutton"
             android:layout_width="0dp"
+            android:text="Get new ships"
             android:layout_height="match_parent"
             android:layout_weight="0.33">
 
-        </TextView>
+        </Button>
+        <Button
+            android:id="@+id/readybutton"
+            android:layout_width="0dp"
+            android:text="Ready"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33">
+
+        </Button>
     </LinearLayout>
     <GridView
         android:id="@+id/opponentGrid"

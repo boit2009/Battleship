@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.battleship.apicalls.PlayCalls;
+import com.example.battleship.apicalls.UserCalls;
 import com.example.battleship.network.NetworkUtil;
 import com.example.battleship.R;
 import com.example.battleship.network.VolleyCallback;
@@ -29,10 +30,35 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
 
     private GridView myGrid,opponentGrid;
     private List<Field> myTrackField, opponentTrackField;
-    private Button button;
+    private Button readyButton,leaveButton, newShipButton;
     private TrackAdapter myTrackAdapter,opponentTrackAdapter;
     private String mode,ID;
     private ArrayList<Integer>disabledFields;
+
+    private void setGameState(GameState gameState){
+        if(gameState.equals(GameState.host_waiting)){
+            leaveButton.setVisibility(View.VISIBLE);
+            readyButton.setVisibility(View.INVISIBLE);
+            newShipButton.setVisibility(View.INVISIBLE);
+            myGrid.setVisibility(View.INVISIBLE);
+            opponentGrid.setVisibility(View.INVISIBLE);
+
+        }
+        if(gameState.equals(GameState.waiting_in_room)){
+            leaveButton.setVisibility(View.INVISIBLE);
+            readyButton.setVisibility(View.VISIBLE);
+            newShipButton.setVisibility(View.VISIBLE);
+            myGrid.setVisibility(View.VISIBLE);
+            opponentGrid.setVisibility(View.INVISIBLE);
+        }
+        if(gameState.equals(GameState.in_game)){
+            leaveButton.setVisibility(View.INVISIBLE);
+            readyButton.setVisibility(View.INVISIBLE);
+            newShipButton.setVisibility(View.INVISIBLE);
+            myGrid.setVisibility(View.VISIBLE);
+            opponentGrid.setVisibility(View.VISIBLE);
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,10 +67,29 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
         Intent intent = getIntent();
         mode= intent.getStringExtra("mode");
         ID=intent.getStringExtra("ID");
+        System.out.println(ID);
         myGrid = (GridView) findViewById(R.id.myGrid);
-        PlayCalls.playWithRobot(mode,getApplicationContext(),GridActivity.this::onSuccess, ID);
+        if(mode.equals("robot"))
+            PlayCalls.playWithRobot(getApplicationContext(),GridActivity.this::onSuccess, ID);
         opponentGrid =(GridView) findViewById(R.id.opponentGrid);
-        button = (Button) findViewById(R.id.button);
+        newShipButton = (Button) findViewById(R.id.newshipbutton);
+        leaveButton = (Button) findViewById(R.id.leavebutton);
+        readyButton = (Button) findViewById(R.id.readybutton);
+        newShipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PlayCalls.getNewShipPositions(getApplicationContext(),GridActivity.this::onSuccess, ID);
+            }
+        });
+        readyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                newShipButton.setVisibility(View.INVISIBLE);
+                PlayCalls.ready(getApplicationContext(),GridActivity.this::onSuccess, ID);
+
+
+            }
+        });
         myTrackAdapter = new TrackAdapter(getApplicationContext(), _getMyTrackField());
         opponentTrackAdapter = new TrackAdapter(getApplicationContext(), _getMyTrackField());
         opponentGrid.setAdapter(opponentTrackAdapter);
@@ -57,13 +102,19 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
                     opponentGrid.setEnabled(false);
                     LinearLayout linearLayout = (LinearLayout) view;
                     TextView textView = (TextView) linearLayout.getChildAt(0);
-                    textView.setEnabled(false);
                     PlayCalls.shoot(getApplicationContext(),GridActivity.this::onSuccess,ID,position);
                     disabledFields.add(position);
                 }
 
             }
         });
+        setGameState(GameState.waiting_in_room);
+        if(mode.equals("newRoom")){
+            setGameState(GameState.host_waiting);
+            UserCalls.createRoom(getApplicationContext(),GridActivity.this::onSuccess, ID);
+
+        }
+
     }
 
     List<Field> _getMyTrackField(){
@@ -76,10 +127,19 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
 
     @Override
     public void onSuccess(JSONObject result,String mode) throws JSONException {
-        if (mode.equals("start")){
+
+        if (mode.equals("start") || mode.equals("newship")){
+            if (mode.equals("start")){
+                setGameState(GameState.waiting_in_room);
+            }
             JSONArray asD = (JSONArray) result.get("field");
             myTrackAdapter.updateTrack(asD);
-        }else {
+
+        }
+        if(mode.equals("shoot") ||mode.equals("ready") ){
+            if(mode.equals("ready")){
+                setGameState(GameState.in_game);
+            }
             Iterator<String> keys = result.keys();
             boolean nextFieldIsMyField=false;
             while (keys.hasNext()) {
@@ -114,4 +174,6 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
 
         opponentGrid.setEnabled(true);
     }
+
+
 }

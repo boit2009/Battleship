@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Rooms.class);
+                intent.putExtra("ID",ID);
+                intent.putExtra("mode","user");
                 startActivity(intent);
             }
         });
@@ -77,11 +79,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), GridActivity.class);
                 startActivity(intent);
-                /*try {
-                    textView.setText(jObject.getString("name"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }*/
 
 
             }
@@ -91,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(getApplicationContext(), LeaderBoard.class);
+
                 intent.putExtra("mode", "robot");
                 startActivity(intent);
             }

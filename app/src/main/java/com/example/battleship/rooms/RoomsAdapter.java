@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.battleship.R;
+import com.example.battleship.grid.GridActivity;
 import com.example.battleship.main.MainActivity;
 
 import java.util.ArrayList;
@@ -35,7 +36,19 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.roomname.setText(arrayList.get(position).getRoomName());
+        holder.connectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, GridActivity.class);
+                intent.putExtra("mode","multiplayer");
+                context.startActivity(intent);
+            }
+        });
 
+    }
+    public void upDateAdapter(ArrayList<Room>rooms){
+        this.arrayList=rooms;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -51,14 +64,6 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.MyViewHolder
             super(itemView);
             roomname=(TextView) itemView.findViewById(R.id.roomname);
             connectButton=(Button) itemView.findViewById(R.id.connectbutton);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.i("Loti","name");
-                    Intent intent=new Intent(context, MainActivity.class);
-                    context.startActivity(intent);
-                }
-            });
 
         }
     }

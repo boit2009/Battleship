@@ -25,8 +25,6 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
         context=c;
         this.arrayList=arrayList;
         this.mode= mode;
-
-
     }
 
     @NonNull

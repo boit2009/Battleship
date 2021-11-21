@@ -22,10 +22,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class PlayCalls {
-    static public void playWithRobot(String mode, Context context, VolleyCallback volleyCallback, String ID){
-        ArrayList<Player> players= new ArrayList();
+    static public void playWithRobot(Context context, VolleyCallback volleyCallback, String ID){
         RequestQueue queue = Volley.newRequestQueue(context);
-
         String url ="http://192.168.31.132:8080/api/play/opponent=robot?userId="+ID;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -34,6 +32,31 @@ public class PlayCalls {
                         try {
                             JSONObject jObject = new JSONObject(response);
                              volleyCallback.onSuccess(jObject,"start");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("calls", error.toString());
+
+            }
+        });
+
+        queue.add(stringRequest);
+    }
+    static public void getNewShipPositions(Context context, VolleyCallback volleyCallback, String ID){
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        String url ="http://192.168.31.132:8080/api/play/getNewShipPositions?userId="+ID;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jObject = new JSONObject(response);
+                            volleyCallback.onSuccess(jObject,"newship");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -60,6 +83,32 @@ public class PlayCalls {
                         try {
                             JSONObject jObject = new JSONObject(response);
                             volleyCallback.onSuccess(jObject,"shoot");
+                        } catch (JSONException e) {
+
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("calls", error.toString());
+
+            }
+        });
+
+        queue.add(stringRequest);
+    }
+    static public void ready(Context context, VolleyCallback volleyCallback, String ID){
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        String url ="http://192.168.31.132:8080/api/play/ready?userId="+ID;
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jObject = new JSONObject(response);
+                            volleyCallback.onSuccess(jObject,"ready");
                         } catch (JSONException e) {
 
                             e.printStackTrace();
