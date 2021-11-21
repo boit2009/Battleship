@@ -32,10 +32,12 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
     private Button button;
     private TrackAdapter myTrackAdapter,opponentTrackAdapter;
     private String mode,ID;
+    private ArrayList<Integer>disabledFields;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grid);
+        disabledFields= new ArrayList();
         Intent intent = getIntent();
         mode= intent.getStringExtra("mode");
         ID=intent.getStringExtra("ID");
@@ -51,12 +53,14 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
         opponentGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                opponentGrid.setEnabled(false);
-                LinearLayout linearLayout = (LinearLayout) view;
-                TextView textView = (TextView) linearLayout.getChildAt(0);
-               // textView.setText("?");
-                //textView.setBackgroundColor(Color.rgb(2,221,12));
-                PlayCalls.shoot(getApplicationContext(),GridActivity.this::onSuccess,ID,position);
+                if(!disabledFields.contains(position)){
+                    opponentGrid.setEnabled(false);
+                    LinearLayout linearLayout = (LinearLayout) view;
+                    TextView textView = (TextView) linearLayout.getChildAt(0);
+                    textView.setEnabled(false);
+                    PlayCalls.shoot(getApplicationContext(),GridActivity.this::onSuccess,ID,position);
+                    disabledFields.add(position);
+                }
 
             }
         });
@@ -81,23 +85,18 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
             while (keys.hasNext()) {
                 String key = keys.next();
                 if (result.get(key) instanceof String) {
-                    Log.i("valami",(String) result.get(key));
-                    Log.i("valami",ID);
-
+                  //  Log.i("valami",(String) result.get(key));
+                  //  Log.i("valami",ID);
                     if(result.get(key).equals(ID)){
                         nextFieldIsMyField=true;
                     }
                 }
                 if (result.get(key) instanceof JSONObject) {
-                    Log.i("valami",String.valueOf(nextFieldIsMyField));
+                 //   Log.i("valami",String.valueOf(nextFieldIsMyField));
                     JSONObject player = (JSONObject)result.get(key);
                     Iterator<String> keys2 = player.keys();
                     while (keys2.hasNext()) {
-                        //Log.i("valami",);
-
                         String key2 = keys2.next();
-                       // Log.i("valami","key2");
-                       // Log.i("valami",key2);
                         JSONArray array= (JSONArray) player.get("field");
                         if(nextFieldIsMyField){
                             nextFieldIsMyField=false;
@@ -106,14 +105,10 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
                         else{
                             opponentTrackAdapter.updateTrack(array);
                         }
-
                     }
 
                 }
-
-
                 System.out.println(result.get("player1").toString());
-                // JSONObject jsonObject = (JSONObject) result.get("player1");
             }
         }
 
