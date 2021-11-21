@@ -151,4 +151,50 @@ public class UserCalls {
 
 
     }
+    static public void saveUserName(Context context, String ID,String newName){
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url ="http://192.168.31.132:8080/api/profile/changeUsername?Id="+ID+"&newUsername="+newName;
+        StringRequest renamerequest = new StringRequest(Request.Method.PUT, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i("tag", response);
+                    }
+
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("tag", error.getMessage());
+            }
+        });
+        queue.add(renamerequest);
+
+
+    }
+    static public void getProfile(Context context, VolleyCallback volleyCallback,String ID){
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url ="http://192.168.31.132:8080/api/profile/"+ID;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jObject = new JSONObject(response);
+                            volleyCallback.onSuccess(jObject,"simple");
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("tag", error.getMessage());
+            }
+        });
+        queue.add(stringRequest);
+
+    }
+
 }

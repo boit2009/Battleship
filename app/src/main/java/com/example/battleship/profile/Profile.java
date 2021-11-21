@@ -17,43 +17,44 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.battleship.R;
+import com.example.battleship.apicalls.UserCalls;
+import com.example.battleship.network.VolleyCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Profile extends AppCompatActivity {
-    private JSONObject jObject = null;
+public class Profile extends AppCompatActivity implements VolleyCallback {
+    private TextView nameTexView,gamesPlayedVsAiTextView,gamesPlayedVsUserTextView,gamesWonVsAiTextView,gamesWonVsUserTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        TextView gamesPlayedVsAiTextView = findViewById(R.id.gamesPlayedVsAi);
-        TextView gamesPlayedVsUserTextView = findViewById(R.id.gamesPlayedVsUser);
-        TextView gamesWonVsAiTextView = findViewById(R.id.gamesWonVsAi);
-        TextView gamesWonVsUserTextView = findViewById(R.id.gamesWonVsUser);
-        TextView nameTexView = findViewById(R.id.name);
+        gamesPlayedVsAiTextView = findViewById(R.id.gamesPlayedVsAi);
+        gamesPlayedVsUserTextView = findViewById(R.id.gamesPlayedVsUser);
+        gamesWonVsAiTextView = findViewById(R.id.gamesWonVsAi);
+        gamesWonVsUserTextView = findViewById(R.id.gamesWonVsUser);
+
+        nameTexView = findViewById(R.id.name);
         EditText editText = findViewById(R.id.editTextTextPersonName);
         Button saveButton = findViewById(R.id.savebutton);
         Button renameButton = findViewById(R.id.renamebutton);
         editText.setVisibility(View.GONE);
         saveButton.setVisibility(View.GONE);
         //get the data from server
-        RequestQueue queue = Volley.newRequestQueue(this);
+
         String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        String url ="http://192.168.31.132:8080/api/profile/"+ID;
+        UserCalls.getProfile(getApplicationContext(),Profile.this::onSuccess,ID);
+       /* String url ="http://192.168.31.132:8080/api/profile/"+ID;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
                             jObject = new JSONObject(response);
-                            gamesPlayedVsAiTextView.setText(jObject.getString("gamesPlayedVsAi"));
-                            gamesPlayedVsUserTextView.setText(jObject.getString("gamesPlayedVsUser"));
-                            gamesWonVsAiTextView.setText(jObject.getString("gamesWonVsAi"));
-                            gamesWonVsUserTextView.setText(jObject.getString("gamesWonVsUser"));
-                            nameTexView.setText(jObject.getString("name"));
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -65,7 +66,7 @@ public class Profile extends AppCompatActivity {
                 Log.i("tag", error.getMessage());
             }
         });
-        queue.add(stringRequest);
+        queue.add(stringRequest);*/
         renameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,27 +83,22 @@ public class Profile extends AppCompatActivity {
                 editText.setVisibility(View.GONE);
                 saveButton.setVisibility(View.GONE);
                 renameButton.setVisibility(View.VISIBLE);
-                String url ="http://192.168.31.132:8080/api/profile/changeUsername?Id=1&newUsername="+editText.getText();
-                StringRequest renamerequest = new StringRequest(Request.Method.PUT, url,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                Log.i("tag", response);
-                            }
-
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i("tag", error.getMessage());
-                    }
-                });
-                queue.add(renamerequest);
-
+                String newName= String.valueOf(editText.getText());
+                UserCalls.saveUserName(getApplicationContext(),ID,newName);
 
             }
         });
 
 
 
+    }
+
+    @Override
+    public void onSuccess(JSONObject result, String mode) throws JSONException {
+        gamesPlayedVsAiTextView.setText(result.getString("gamesPlayedVsAi"));
+        gamesPlayedVsUserTextView.setText(result.getString("gamesPlayedVsUser"));
+        gamesWonVsAiTextView.setText(result.getString("gamesWonVsAi"));
+        gamesWonVsUserTextView.setText(result.getString("gamesWonVsUser"));
+        nameTexView.setText(result.getString("name"));
     }
 }

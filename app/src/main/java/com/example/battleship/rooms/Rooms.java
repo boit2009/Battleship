@@ -27,13 +27,7 @@ public class Rooms extends AppCompatActivity implements VolleyCallbackArrayVersi
     private Button createNewButton;
     private RoomsAdapter roomsAdapter;
     String ID;
-    public ArrayList<Room> mockRooms(){
-        ArrayList<Room> mockrooms= new ArrayList();
-        for(int i=0;i<20;i++) {
-            mockrooms.add(new Room("Boti szobája" + String.valueOf(i),0));
-        }
-        return mockrooms;
-    }
+
 
 
     @Override
@@ -71,6 +65,7 @@ public class Rooms extends AppCompatActivity implements VolleyCallbackArrayVersi
         for(int i=0;i<result.length();i++){
             JSONObject jsonObject= (JSONObject) result.get(i);
             String userID= jsonObject.getString("userId");
+
             int roomid=jsonObject.getInt("id");
             rooms.add(new Room(userID,roomid));
             Log.i("rooms","success");
