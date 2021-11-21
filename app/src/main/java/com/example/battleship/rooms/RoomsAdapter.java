@@ -35,14 +35,15 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.roomname.setText(arrayList.get(position).getRoomName());
+        holder.roomname.setText(arrayList.get(holder.getAdapterPosition()).getRoomName());
         holder.connectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(context, GridActivity.class);
                 intent.putExtra("mode","multiplayer");
+                intent.putExtra("roomID",String.valueOf(arrayList.get(holder.getAdapterPosition()).getRoomID()));
                 context.startActivity(intent);
-            }
+                            }
         });
 
     }

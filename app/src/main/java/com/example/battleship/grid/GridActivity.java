@@ -3,6 +3,7 @@ package com.example.battleship.grid;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,8 +34,35 @@ import java.util.function.BinaryOperator;
 
 public class GridActivity extends AppCompatActivity implements VolleyCallback {
 
+    @Override
+    public void onBackPressed() {
+        if(gameState.equals(GameState.host_waiting)){
+            UserCalls.leaveRoom(getApplicationContext(),ID);
+            super.onBackPressed();
+
+        }else{
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle(getResources().getString(R.string.backtomenu))
+                    .setMessage(getResources().getString(R.string.areyousure))
+                    .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            UserCalls.leaveGame(getApplicationContext(),ID);
+
+                            finish();
+                        }
+
+                    })
+                    .setNegativeButton(getResources().getString(R.string.no), null)
+                    .show();
+        }
+
+
+    }
+
     private GridView myGrid,opponentGrid;
-    private List<Field> myTrackField, opponentTrackField;
+    private GameState gameState;
     private Button readyButton,leaveButton, newShipButton;
     private TrackAdapter myTrackAdapter,opponentTrackAdapter;
     private String mode,ID;
@@ -63,6 +91,7 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
             myGrid.setVisibility(View.VISIBLE);
             opponentGrid.setVisibility(View.VISIBLE);
         }
+        this.gameState=gameState;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +100,8 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
         disabledFields= new ArrayList();
         Intent intent = getIntent();
         mode= intent.getStringExtra("mode");
-        ID=intent.getStringExtra("ID");
+        ID = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ANDROID_ID);
         System.out.println(ID);
         myGrid = (GridView) findViewById(R.id.myGrid);
         if(mode.equals("robot"))
@@ -130,6 +160,13 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
             UserCalls.createRoom(getApplicationContext(),GridActivity.this::onSuccess, ID);
 
         }
+        if(mode.equals("multiplayer")){
+            setGameState(GameState.waiting_in_room);
+            String roomID=intent.getStringExtra("roomID");
+            UserCalls.connectRoom(getApplicationContext(),GridActivity.this::onSuccess,roomID, ID);
+            //PlayCalls.getNewShipPositions(getApplicationContext(),GridActivity.this::onSuccess, ID);
+
+        }
 
     }
 
@@ -144,8 +181,10 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
     @Override
     public void onSuccess(JSONObject result,String mode) throws JSONException {
 
+
         if (mode.equals("start") || mode.equals("newship")){
             if (mode.equals("start")){
+                Log.i("valami","success connection");
                 setGameState(GameState.waiting_in_room);
             }
             JSONArray asD = (JSONArray) result.get("field");
@@ -169,9 +208,6 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
                     if(key.equals("winner")){
                         winner =(String) result.get(key);
                     }
-                  //  Log.i("valami",(String) result.get(key));
-                  //  Log.i("valami",key);
-                  //  Log.i("valami",(String) result.get(key));
                     if(result.get(key).equals(ID)){
                         nextFieldIsMyField=true;
                     }
@@ -193,9 +229,9 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
                     }
 
                 }
-                System.out.println(result.get("player1").toString());
             }
             if(finished){
+
                 new AlertDialog.Builder(GridActivity.this)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setTitle("GAME OVER")

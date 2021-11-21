@@ -46,7 +46,7 @@ public class Profile extends AppCompatActivity implements VolleyCallback {
 
         String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        UserCalls.getProfile(getApplicationContext(),Profile.this::onSuccess,ID);
+        UserCalls.getProfile(getApplicationContext(),Profile.this::onSuccess,ID,0);
        /* String url ="http://192.168.31.132:8080/api/profile/"+ID;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {

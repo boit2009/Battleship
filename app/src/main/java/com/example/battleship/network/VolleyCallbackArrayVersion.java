@@ -5,5 +5,5 @@ import org.json.JSONException;
 
 
 public interface VolleyCallbackArrayVersion {
-    void onSuccess(JSONArray result, String mode) throws JSONException;
+    void onSuccessArray(JSONArray result, String mode) throws JSONException;
 }

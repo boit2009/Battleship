@@ -21,7 +21,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Rooms extends AppCompatActivity implements VolleyCallbackArrayVersion {
+public class Rooms extends AppCompatActivity implements VolleyCallbackArrayVersion, VolleyCallback{
     private ArrayList<Room> rooms;
     private RecyclerView recyclerView;
     private Button createNewButton;
@@ -52,7 +52,7 @@ public class Rooms extends AppCompatActivity implements VolleyCallbackArrayVersi
                 finish();
             }
         });
-        UserCalls.getRooms(getApplicationContext(),Rooms.this::onSuccess);
+        UserCalls.getRooms(getApplicationContext(),Rooms.this::onSuccessArray);
 
 
 
@@ -60,18 +60,26 @@ public class Rooms extends AppCompatActivity implements VolleyCallbackArrayVersi
     }
 
     @Override
-    public void onSuccess(JSONArray result, String mode) throws JSONException {
+    public void onSuccessArray(JSONArray result, String mode) throws JSONException {
 
         for(int i=0;i<result.length();i++){
             JSONObject jsonObject= (JSONObject) result.get(i);
             String userID= jsonObject.getString("userId");
-
             int roomid=jsonObject.getInt("id");
-            rooms.add(new Room(userID,roomid));
+            UserCalls.getProfile(getApplicationContext(),Rooms.this::onSuccess, userID,roomid);
+
+           // rooms.add(new Room(userID,roomid));
             Log.i("rooms","success");
         }
-        roomsAdapter.upDateAdapter(rooms);
+
     }
 
 
+    @Override
+    public void onSuccess(JSONObject result, String mode) throws JSONException {
+        String username=result.getString("name");
+        Log.i("valami",mode);
+        rooms.add(new Room(username,Integer.valueOf(mode)));
+        roomsAdapter.upDateAdapter(rooms);
+    }
 }
