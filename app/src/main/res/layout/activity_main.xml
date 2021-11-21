@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -19,22 +18,20 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.2"
-        android:text="Profile"
+        android:text="@string/profile"
         />
 
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.2"
-        android:text="random button" />
+        android:layout_weight="0.2"/>
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:text="TextView" />
+        android:layout_weight="0.1" />
 
     <LinearLayout
         android:id="@+id/leaderlayout"
@@ -48,13 +45,13 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:text="Leaderboard Single player"/>
+            android:text="@string/lboardsingle" />
         <Button
             android:id="@+id/leaderboarduser"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:text="Leaderboard Multiplayer"/>
+            android:text="@string/lboardmulti"/>
 
     </LinearLayout>
 
@@ -69,14 +66,14 @@
         <Button
             android:id="@+id/multiplayergamebutton"
             android:layout_width="0dp"
-            android:text="Multiplayer"
+            android:text="@string/multiplayer"
             android:layout_weight="0.5"
             android:layout_height="match_parent">
         </Button>
         <Button
             android:id="@+id/singleplayerbutton"
             android:layout_width="0dp"
-            android:text="Play with robot"
+            android:text="@string/playrobot"
             android:layout_weight="0.5"
             android:layout_height="match_parent">
         </Button>
