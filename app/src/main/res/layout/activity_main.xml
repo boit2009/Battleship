@@ -44,10 +44,13 @@
             android:id="@+id/leaderboardrobot"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            style="?android:attr/buttonStyle"
             android:layout_weight="0.5"
-            android:text="@string/lboardsingle" />
+            android:text="@string/lboardsingle"
+            tools:ignore="NestedWeights" />
         <Button
             android:id="@+id/leaderboarduser"
+            style="?android:attr/buttonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
@@ -67,11 +70,14 @@
             android:id="@+id/multiplayergamebutton"
             android:layout_width="0dp"
             android:text="@string/multiplayer"
+            style="?android:attr/buttonStyle"
             android:layout_weight="0.5"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:ignore="NestedWeights">
         </Button>
         <Button
             android:id="@+id/singleplayerbutton"
+            style="?android:attr/buttonStyle"
             android:layout_width="0dp"
             android:text="@string/playrobot"
             android:layout_weight="0.5"
