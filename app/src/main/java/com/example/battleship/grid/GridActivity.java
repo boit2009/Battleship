@@ -66,6 +66,7 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
     private Button readyButton,leaveButton, newShipButton;
     private TrackAdapter myTrackAdapter,opponentTrackAdapter;
     private String mode,ID;
+    private LinearLayout linearLayout,mainLienarLayout;
     private ArrayList<Integer>disabledFields;
 
     private void setGameState(GameState gameState){
@@ -103,13 +104,18 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
         ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         System.out.println(ID);
-        myGrid = (GridView) findViewById(R.id.myGrid);
+        myGrid =  findViewById(R.id.myGrid);
         if(mode.equals("robot"))
             PlayCalls.playWithRobot(getApplicationContext(),GridActivity.this::onSuccess, ID);
-        opponentGrid =(GridView) findViewById(R.id.opponentGrid);
-        newShipButton = (Button) findViewById(R.id.newshipbutton);
-        leaveButton = (Button) findViewById(R.id.leavebutton);
-        readyButton = (Button) findViewById(R.id.readybutton);
+        opponentGrid = findViewById(R.id.opponentGrid);
+        newShipButton = findViewById(R.id.newshipbutton);
+        leaveButton = findViewById(R.id.leavebutton);
+        readyButton = findViewById(R.id.readybutton);
+        linearLayout= findViewById(R.id.linear);
+        mainLienarLayout= findViewById(R.id.mainLinearLayout);
+
+        linearLayout.setBackgroundColor(Color.rgb(141,141,142));
+        mainLienarLayout.setBackgroundColor(Color.rgb(141,141,142));
         leaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,6 +143,9 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
         myTrackAdapter = new TrackAdapter(getApplicationContext(), _getMyTrackField());
         opponentTrackAdapter = new TrackAdapter(getApplicationContext(), _getMyTrackField());
         opponentGrid.setAdapter(opponentTrackAdapter);
+        opponentGrid.setBackgroundColor(Color.rgb(141,141,142));
+        myGrid.setBackgroundColor(Color.rgb(141,141,142));
+
         myGrid.setAdapter(myTrackAdapter);
         myGrid.setEnabled(false);
         opponentGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {

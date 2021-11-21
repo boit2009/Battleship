@@ -73,7 +73,7 @@ public class TrackAdapter extends BaseAdapter {
         Log.i("adsAG", String.valueOf(field.getHeight()));
         // getColor(getItem(i).getState())
         if(getItem(i).getState()==State.hit){
-            field.setBackgroundColor(Color.rgb(255,0,0));
+            field.setBackgroundColor(Color.rgb(253,88,81));
             field.setText("H");
         }
         if(getItem(i).getState()==State.ship) {
@@ -82,6 +82,7 @@ public class TrackAdapter extends BaseAdapter {
         }
         if(getItem(i).getState()==State.water) {
             field.setBackgroundColor(Color.rgb(0,0,255));
+            field.setTextColor(Color.rgb(250,250,250));
             field.setText("W");
         }
         if(getItem(i).getState()==State.sunk) {
@@ -90,6 +91,7 @@ public class TrackAdapter extends BaseAdapter {
         }
         if(getItem(i).getState()==State.missed) {
             field.setBackgroundColor(Color.rgb(2, 0, 5));
+            field.setTextColor(Color.rgb(250,250,250));
             field.setText("M");
         }
 

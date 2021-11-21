@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:weightSum="1"
     android:orientation="vertical"
+    android:id="@+id/mainLinearLayout"
     tools:context=".grid.GridActivity">
     <LinearLayout
         android:id="@+id/linear"
