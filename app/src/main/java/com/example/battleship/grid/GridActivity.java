@@ -164,12 +164,10 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
             setGameState(GameState.waiting_in_room);
             String roomID=intent.getStringExtra("roomID");
             UserCalls.connectRoom(getApplicationContext(),GridActivity.this::onSuccess,roomID, ID);
-            //PlayCalls.getNewShipPositions(getApplicationContext(),GridActivity.this::onSuccess, ID);
 
         }
 
     }
-
     List<Field> _getMyTrackField(){
         List<Field> fields = new ArrayList<Field>();
         for(int i=0; i<100; i++){
@@ -180,6 +178,22 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
 
     @Override
     public void onSuccess(JSONObject result,String mode) throws JSONException {
+        if(mode.equals("-1")){
+            String winner=result.getString("name");
+            new AlertDialog.Builder(GridActivity.this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("GAME OVER")
+                    .setMessage(winner+ " won")
+                    .setPositiveButton(getResources().getString(R.string.backtomenu), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(GridActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
+                        }
+
+                    }).show();
+
+        }
 
 
         if (mode.equals("start") || mode.equals("newship")){
@@ -231,21 +245,7 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
                 }
             }
             if(finished){
-
-                new AlertDialog.Builder(GridActivity.this)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("GAME OVER")
-                        .setMessage(winner+ " won")
-                        .setPositiveButton(getResources().getString(R.string.backtomenu), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                                startActivity(new Intent(GridActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                                finish();
-                            }
-
-                        })
-                        .show();
+                UserCalls.getProfile(getApplicationContext(),GridActivity.this::onSuccess,winner,-1);
             }
 
 
