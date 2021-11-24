@@ -10,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.battleship.BuildConfig;
 import com.example.battleship.leadboard.Player;
 import com.example.battleship.network.VolleyCallbackPlayer;
 
@@ -25,7 +26,7 @@ public class LeaderBoardCalls {
     static public void getLeaderBoard(String mode, Context context, VolleyCallbackPlayer volleyCallbackPlayer){
         ArrayList<Player>players= new ArrayList();
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url ="http://192.168.31.132:8080/api/leaderboard/"+mode;
+        String url ="http://"+ BuildConfig.ipAddress +":8080/api/leaderboard/"+mode;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -79,12 +80,8 @@ public class LeaderBoardCalls {
 
             }
         });
-       // stringRequest.setRetryPolicy(new DefaultRetryPolicy(25000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
         queue.add(stringRequest);
         Log.i("calls", "valamisemmi");
-        //players.add(new Player("asd",3,1));
-//
-        //return players;
+
     }
 }

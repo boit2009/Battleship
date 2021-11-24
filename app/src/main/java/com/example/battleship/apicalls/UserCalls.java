@@ -10,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.battleship.BuildConfig;
 import com.example.battleship.leadboard.Player;
 import com.example.battleship.network.VolleyCallback;
 import com.example.battleship.network.VolleyCallbackArrayVersion;
@@ -24,9 +25,8 @@ import java.util.Iterator;
 public class UserCalls {
 
     static public void leaveRoom(Context context,String ID){
-        ArrayList<Player> players= new ArrayList();
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url ="http://192.168.31.132:8080/api/leaveRoom?userId="+ID;
+        String url ="http://"+ BuildConfig.ipAddress +":8080/api/leaveRoom?userId="+ID;
         StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url,
                 new Response.Listener<String>() {
                     @Override
@@ -50,9 +50,8 @@ public class UserCalls {
 
     }
     static public void getRooms(Context context, VolleyCallbackArrayVersion volleyCallback){
-        ArrayList<Player> players= new ArrayList();
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url ="http://192.168.31.132:8080/api/rooms";
+        String url ="http://"+ BuildConfig.ipAddress +":8080/api/rooms";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -86,7 +85,7 @@ public class UserCalls {
     }
     static public void connectRoom(Context context, VolleyCallback volleyCallback,String roomId,String ID){
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url ="http://192.168.31.132:8080/api/play/"+roomId+"/opponent=user?userId="+ID;
+        String url ="http://"+ BuildConfig.ipAddress +":8080/api/play/"+roomId+"/opponent=user?userId="+ID;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -120,7 +119,7 @@ public class UserCalls {
     }
     static public void createRoom(Context context, VolleyCallback volleyCallback,String ID){
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url ="http://192.168.31.132:8080/api/createRoom?userId="+ID;
+        String url ="http://"+ BuildConfig.ipAddress +":8080/api/createRoom?userId="+ID;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -152,7 +151,7 @@ public class UserCalls {
     }
     static public void saveUserName(Context context, String ID,String newName){
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url ="http://192.168.31.132:8080/api/profile/changeUsername?Id="+ID+"&newUsername="+newName;
+        String url ="http://"+ BuildConfig.ipAddress +":8080/api/profile/changeUsername?Id="+ID+"&newUsername="+newName;
         StringRequest renamerequest = new StringRequest(Request.Method.PUT, url,
                 new Response.Listener<String>() {
                     @Override
@@ -172,7 +171,8 @@ public class UserCalls {
     }
     static public void getProfile(Context context, VolleyCallback volleyCallback,String ID,int roomid){
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url ="http://192.168.31.132:8080/api/profile/"+ID;
+        String url ="http://"+ BuildConfig.ipAddress +":8080/api/profile/"+ID;
+        System.out.println(url);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -197,7 +197,7 @@ public class UserCalls {
     }
     static public void leaveGame(Context context,String ID){
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url ="http://192.168.31.132:8080/api/leaveGame?userId="+ID;
+        String url ="http://"+ BuildConfig.ipAddress +":8080/api/leaveGame?userId="+ID;
         StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url,
                 new Response.Listener<String>() {
                     @Override

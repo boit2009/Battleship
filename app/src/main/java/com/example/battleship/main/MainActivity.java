@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         //get device uniqueID
         String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);

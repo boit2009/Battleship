@@ -11,6 +11,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.battleship.BuildConfig;
 import com.example.battleship.leadboard.Player;
 import com.example.battleship.network.VolleyCallback;
 import com.example.battleship.network.VolleyCallbackPlayer;
@@ -25,7 +26,7 @@ import java.util.Iterator;
 public class PlayCalls {
     static public void playWithRobot(Context context, VolleyCallback volleyCallback, String ID){
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url ="http://192.168.31.132:8080/api/play/opponent=robot?userId="+ID;
+        String url ="http://"+ BuildConfig.ipAddress +":8080/api/play/opponent=robot?userId="+ID;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -50,7 +51,7 @@ public class PlayCalls {
     static public void getNewShipPositions(Context context, VolleyCallback volleyCallback, String ID){
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        String url ="http://192.168.31.132:8080/api/play/getNewShipPositions?userId="+ID;
+        String url ="http://"+ BuildConfig.ipAddress +":8080/api/play/getNewShipPositions?userId="+ID;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -76,7 +77,7 @@ public class PlayCalls {
         ArrayList<Player> players= new ArrayList();
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        String url ="http://192.168.31.132:8080/api/play/shoot?userId="+ID+"&fieldId="+String.valueOf(position);
+        String url ="http://"+ BuildConfig.ipAddress +":8080/api/play/shoot?userId="+ID+"&fieldId="+String.valueOf(position);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -102,7 +103,7 @@ public class PlayCalls {
     static public void ready(Context context, VolleyCallback volleyCallback, String ID){
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        String url ="http://192.168.31.132:8080/api/play/ready?userId="+ID;
+        String url ="http://"+ BuildConfig.ipAddress +":8080/api/play/ready?userId="+ID;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override

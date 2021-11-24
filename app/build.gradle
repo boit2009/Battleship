@@ -11,6 +11,7 @@ android {
         targetSdk 30
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "ipAddress", "\"192.168.87.85\""
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -19,7 +20,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
         }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
