@@ -47,26 +47,6 @@ public class Profile extends AppCompatActivity implements VolleyCallback {
         String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         UserCalls.getProfile(getApplicationContext(),Profile.this::onSuccess,ID,0);
-       /* String url ="http://192.168.31.132:8080/api/profile/"+ID;
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            jObject = new JSONObject(response);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i("tag", error.getMessage());
-            }
-        });
-        queue.add(stringRequest);*/
         renameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,10 +75,10 @@ public class Profile extends AppCompatActivity implements VolleyCallback {
 
     @Override
     public void onSuccess(JSONObject result, String mode) throws JSONException {
-        gamesPlayedVsAiTextView.setText(result.getString("gamesPlayedVsAi"));
-        gamesPlayedVsUserTextView.setText(result.getString("gamesPlayedVsUser"));
-        gamesWonVsAiTextView.setText(result.getString("gamesWonVsAi"));
-        gamesWonVsUserTextView.setText(result.getString("gamesWonVsUser"));
-        nameTexView.setText(result.getString("name"));
+        gamesPlayedVsAiTextView.setText("Games played vs robot: "+result.getString("gamesPlayedVsAi"));
+        gamesPlayedVsUserTextView.setText("Games played vs user: "+result.getString("gamesPlayedVsUser"));
+        gamesWonVsAiTextView.setText("Games won vs robot: "+result.getString("gamesWonVsAi"));
+        gamesWonVsUserTextView.setText("Games won vs User: "+result.getString("gamesWonVsUser"));
+        nameTexView.setText("User name: "+result.getString("name"));
     }
 }

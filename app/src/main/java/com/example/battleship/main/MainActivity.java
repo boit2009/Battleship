@@ -40,8 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 Settings.Secure.ANDROID_ID);
 
         //get the neccessary Views
-        final TextView textView = findViewById(R.id.textView2);
-        final Button button = findViewById(R.id.button);
+
         final Button profileButton = findViewById(R.id.profilebutton);
         final Button leaderBoardRobotButton = findViewById(R.id.leaderboardrobot);
         final Button leaderBoardUserButton = findViewById(R.id.leaderboarduser);
@@ -66,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        textView.setText("Device ID: "+ ID);
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,15 +73,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), GridActivity.class);
-                startActivity(intent);
-
-
-            }
-
-        });
         leaderBoardRobotButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

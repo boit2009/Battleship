@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -179,8 +181,8 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
         myTrackAdapter = new TrackAdapter(getApplicationContext(), _getMyTrackField());
         opponentTrackAdapter = new TrackAdapter(getApplicationContext(), _getMyTrackField());
         opponentGrid.setAdapter(opponentTrackAdapter);
-        opponentGrid.setBackgroundColor(Color.rgb(141,141,142));
-        myGrid.setBackgroundColor(Color.rgb(141,141,142));
+        //opponentGrid.setBackgroundColor(Color.rgb(141,141,142));
+        //myGrid.setBackgroundColor(Color.rgb(141,141,142));
 
         myGrid.setAdapter(myTrackAdapter);
         myGrid.setEnabled(false);

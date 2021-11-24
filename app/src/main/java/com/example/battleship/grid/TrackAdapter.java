@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.battleship.R;
@@ -68,17 +70,21 @@ public class TrackAdapter extends BaseAdapter {
         view = inflater.inflate(R.layout.track_field_item, null);
         TextView field = (TextView) view.findViewById(R.id.field);
 
-        field.setBackgroundColor(Color.rgb(0,0,255));
-        field.setText(String.valueOf(getItem(i).getId()));
+        //field.setBackgroundColor(Color.rgb(0,0,255));
+       // field.setText(String.valueOf(getItem(i).getId()));
+        //field.setBackgroundColor(R.drawable.hit);
         Log.i("adsAG", String.valueOf(field.getHeight()));
         // getColor(getItem(i).getState())
         if(getItem(i).getState()==State.hit){
             field.setBackgroundColor(Color.rgb(253,88,81));
+
+
             field.setText("H");
         }
         if(getItem(i).getState()==State.ship) {
             field.setBackgroundColor(Color.rgb(220,220,220));
             field.setText("S");
+            //field.setBackgroundColor(R.drawable.hit);
         }
         if(getItem(i).getState()==State.water) {
             field.setBackgroundColor(Color.rgb(0,0,255));

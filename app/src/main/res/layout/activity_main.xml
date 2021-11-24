@@ -7,38 +7,24 @@
     android:layout_height="match_parent"
     tools:context=".main.MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:text="Hello World!" />
+
     <Button
         android:id="@+id/profilebutton"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.2"
+        android:layout_weight="0.3"
         android:text="@string/profile"
         />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.2"/>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1" />
+
 
     <LinearLayout
         android:id="@+id/leaderlayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:weightSum="1"
-        android:layout_weight="0.2"
+        android:layout_weight="0.32"
         android:orientation="horizontal">
         <Button
             android:id="@+id/leaderboardrobot"
@@ -64,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:weightSum="1"
-        android:layout_weight="0.2"
+        android:layout_weight="0.35"
         android:orientation="horizontal">
         <Button
             android:id="@+id/multiplayergamebutton"

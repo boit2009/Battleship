@@ -47,18 +47,21 @@
         android:id="@+id/opponentGrid"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/grey"
+        android:background="@drawable/background"
         android:layout_weight="0.45"
         android:stretchMode="spacingWidth"
         android:gravity="center"
         android:columnWidth="25dp"
+
         android:numColumns="10"/>
     <GridView
         android:id="@+id/myGrid"
         android:layout_width="match_parent"
+        android:background="@drawable/background"
         android:stretchMode="spacingWidth"
         android:gravity="center"
         android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/text_margin"
         android:layout_weight="0.45"
         android:columnWidth="25dp"
         android:numColumns="10"/>
