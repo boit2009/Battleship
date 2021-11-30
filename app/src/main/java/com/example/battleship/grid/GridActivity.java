@@ -61,9 +61,7 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
     @Override
     public void onBackPressed() {
         if(gameState.equals(GameState.host_waiting)){
-            UserCalls.leaveRoom(getApplicationContext(),ID);
             super.onBackPressed();
-
         }else{
             new AlertDialog.Builder(this)
                     .setCancelable(false)
@@ -147,7 +145,6 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
         leaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserCalls.leaveRoom(getApplicationContext(),ID);
                 Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent1);
                 finish();
