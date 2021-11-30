@@ -12,18 +12,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.battleship.apicalls.PlayCalls;
 import com.example.battleship.apicalls.UserCalls;
 import com.example.battleship.main.MainActivity;
-import com.example.battleship.network.NetworkUtil;
 import com.example.battleship.R;
 import com.example.battleship.network.VolleyCallback;
-import com.example.battleship.rooms.Rooms;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,15 +28,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.function.BinaryOperator;
 
 public class GridActivity extends AppCompatActivity implements VolleyCallback {
     @Override
     public void onPause() {
-        //Log.i("valami","pause");
+
         if(gameState.equals(GameState.host_waiting)) {
             UserCalls.leaveRoom(getApplicationContext(),ID);
-            Log.i("valami","pause");
         }
         else{
             if(!end_game){
@@ -48,18 +42,13 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
             }
 
         }
-
         super.onPause();
 
     }
     @Override
     public void onResume(){
-        Log.i("valami","onresume");
-
 
         if(resumeCounter==1){
-            Log.i("valami","onresume2");
-
             Intent intent = new Intent(getApplicationContext(),MainActivity.class);
             startActivity(intent);
             finish();
@@ -181,8 +170,6 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
         myTrackAdapter = new TrackAdapter(getApplicationContext(), _getMyTrackField());
         opponentTrackAdapter = new TrackAdapter(getApplicationContext(), _getMyTrackField());
         opponentGrid.setAdapter(opponentTrackAdapter);
-        //opponentGrid.setBackgroundColor(Color.rgb(141,141,142));
-        //myGrid.setBackgroundColor(Color.rgb(141,141,142));
 
         myGrid.setAdapter(myTrackAdapter);
         myGrid.setEnabled(false);
@@ -245,7 +232,6 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
 
         if (mode.equals("start") || mode.equals("newship")){
             if (mode.equals("start")){
-                Log.i("valami","success connection");
                 setGameState(GameState.waiting_in_room);
             }
             JSONArray asD = (JSONArray) result.get("field");
@@ -274,7 +260,6 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
                     }
                 }
                 if (result.get(key) instanceof JSONObject) {
-                 //   Log.i("valami",String.valueOf(nextFieldIsMyField));
                     JSONObject player = (JSONObject)result.get(key);
                     Iterator<String> keys2 = player.keys();
                     while (keys2.hasNext()) {

@@ -26,7 +26,7 @@ public class LeaderBoardCalls {
     static public void getLeaderBoard(String mode, Context context, VolleyCallbackPlayer volleyCallbackPlayer){
         ArrayList<Player>players= new ArrayList();
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url ="http://"+ BuildConfig.ipAddress +":8080/api/leaderboard/"+mode;
+        String url ="http://"+ BuildConfig.ipAddress +"/api/leaderboard/"+mode;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -50,7 +50,6 @@ public class LeaderBoardCalls {
                                         vsRobot =Integer.valueOf((Integer) a.get(key));
                                     if (iteration==4)
                                         vsUser =Integer.valueOf((Integer) a.get(key));
-                                    Log.i("calls", "valamiii");
 
                                     Log.i("calls", String.valueOf(a.get(key)));
                                     iteration++;
@@ -75,13 +74,10 @@ public class LeaderBoardCalls {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i("calls", "valamivolley");
                 Log.i("calls", error.toString());
-
             }
         });
         queue.add(stringRequest);
-        Log.i("calls", "valamisemmi");
 
     }
 }

@@ -26,7 +26,7 @@ import java.util.Iterator;
 public class PlayCalls {
     static public void playWithRobot(Context context, VolleyCallback volleyCallback, String ID){
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url ="http://"+ BuildConfig.ipAddress +":8080/api/play/opponent=robot?userId="+ID;
+        String url ="http://"+ BuildConfig.ipAddress +"/api/play/opponent=robot?userId="+ID;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -51,7 +51,7 @@ public class PlayCalls {
     static public void getNewShipPositions(Context context, VolleyCallback volleyCallback, String ID){
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        String url ="http://"+ BuildConfig.ipAddress +":8080/api/play/getNewShipPositions?userId="+ID;
+        String url ="http://"+ BuildConfig.ipAddress +"/api/play/getNewShipPositions?userId="+ID;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -77,7 +77,7 @@ public class PlayCalls {
         ArrayList<Player> players= new ArrayList();
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        String url ="http://"+ BuildConfig.ipAddress +":8080/api/play/shoot?userId="+ID+"&fieldId="+String.valueOf(position);
+        String url ="http://"+ BuildConfig.ipAddress +"/api/play/shoot?userId="+ID+"&fieldId="+String.valueOf(position);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -103,7 +103,7 @@ public class PlayCalls {
     static public void ready(Context context, VolleyCallback volleyCallback, String ID){
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        String url ="http://"+ BuildConfig.ipAddress +":8080/api/play/ready?userId="+ID;
+        String url ="http://"+ BuildConfig.ipAddress +"/api/play/ready?userId="+ID;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override

@@ -11,8 +11,7 @@ android {
         targetSdk 30
         versionCode 1
         versionName "1.0"
-        buildConfigField "String", "ipAddress", "\"192.168.87.85\""
-
+        buildConfigField "String", "ipAddress", "\"battleship.sch.bme.hu:80\""
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 

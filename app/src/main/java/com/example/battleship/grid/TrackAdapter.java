@@ -47,7 +47,6 @@ public class TrackAdapter extends BaseAdapter {
     }
 
     public void updateTrack(JSONArray asD) throws JSONException {
-       // JSONArray asD = (JSONArray) jObject.get("field");
         for(int i=0;i<asD.length();i++){
             String state= (String) asD.get(i);
             if(state.equals("WATER"))
@@ -68,55 +67,27 @@ public class TrackAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflater.inflate(R.layout.track_field_item, null);
-        TextView field = (TextView) view.findViewById(R.id.field);
-
-        //field.setBackgroundColor(Color.rgb(0,0,255));
-       // field.setText(String.valueOf(getItem(i).getId()));
-        //field.setBackgroundColor(R.drawable.hit);
-        Log.i("adsAG", String.valueOf(field.getHeight()));
-        // getColor(getItem(i).getState())
+        TextView field = view.findViewById(R.id.field);
         if(getItem(i).getState()==State.hit){
             field.setBackgroundColor(Color.rgb(253,88,81));
 
-
-            field.setText("H");
         }
         if(getItem(i).getState()==State.ship) {
             field.setBackgroundColor(Color.rgb(220,220,220));
-            field.setText("S");
-            //field.setBackgroundColor(R.drawable.hit);
+
         }
         if(getItem(i).getState()==State.water) {
             field.setBackgroundColor(Color.rgb(0,0,255));
-            field.setTextColor(Color.rgb(250,250,250));
-            field.setText("W");
         }
         if(getItem(i).getState()==State.sunk) {
             field.setBackgroundColor(Color.rgb(203, 129, 0));
-            field.setText("S");
         }
         if(getItem(i).getState()==State.missed) {
             field.setBackgroundColor(Color.rgb(2, 0, 5));
-            field.setTextColor(Color.rgb(250,250,250));
-            field.setText("M");
+
         }
 
         return view;
     }
 
-    int getColor(State state){
-        if(state == State.water){
-            return R.color.blue;
-        } else if(state == State.ship){
-            return R.color.grey;
-        } else if(state == State.sunk){
-            return R.color.red;
-        } else if(state == State.missed){
-            return R.color.green;
-        } else if(state == State.hit){
-            return R.color.black;
-        } else {
-            return R.color.black;
-        }
-    }
 }

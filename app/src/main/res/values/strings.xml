@@ -103,8 +103,10 @@
     <string name="lboardsingle">Leaderboard Single player</string>
     <string name="lboardmulti">Leaderboard Multiplayer</string>
     <string name="multiplayer">Multiplayer</string>
-    <string name="playrobot">Play with robot</string>
+    <string name="playrobot">Single Player</string>
     <string name="hint">Give an username...</string>
     <string name="save">Save</string>
     <string name="change">Change username</string>
+    <string name="informationbutton">Information</string>
+    <string name="information">This game is our project for the Integration of Information Systems course. If you quit the game or lock your device while you are playing, the app will finish the game and you will loose. PPCU Botond Zemlényi, Botond Feczkó</string>
 </resources>

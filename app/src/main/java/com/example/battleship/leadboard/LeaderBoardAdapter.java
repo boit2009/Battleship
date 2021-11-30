@@ -1,4 +1,4 @@
-package com.example.battleship.rooms;
+package com.example.battleship.leadboard;
 
 import android.content.Context;
 import android.content.Intent;
@@ -37,9 +37,9 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.username.setText(arrayList.get(position).getName());
         if(mode.equals("user"))
-            holder.score.setText(String.valueOf(arrayList.get(position).getWinvsUser()));
+            holder.score.setText("wins: " + String.valueOf(arrayList.get(position).getWinvsUser()));
         else
-            holder.score.setText(String.valueOf(arrayList.get(position).getWinvsRobot()));
+            holder.score.setText("wins: " + String.valueOf(arrayList.get(position).getWinvsRobot()));
 
     }
 

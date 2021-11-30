@@ -10,7 +10,7 @@ import com.example.battleship.R;
 import com.example.battleship.apicalls.LeaderBoardCalls;
 import com.example.battleship.grid.GridActivity;
 import com.example.battleship.network.VolleyCallbackPlayer;
-import com.example.battleship.rooms.LeaderBoardAdapter;
+import com.example.battleship.leadboard.LeaderBoardAdapter;
 import com.example.battleship.rooms.Room;
 import com.example.battleship.rooms.RoomsAdapter;
 

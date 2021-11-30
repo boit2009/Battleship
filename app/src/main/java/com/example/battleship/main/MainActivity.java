@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.battleship.grid.GridActivity;
+import com.example.battleship.information.InformationActivity;
 import com.example.battleship.leadboard.LeaderBoard;
 import com.example.battleship.profile.Profile;
 import com.example.battleship.R;
@@ -47,6 +48,14 @@ public class MainActivity extends AppCompatActivity {
         final Button leaderBoardUserButton = findViewById(R.id.leaderboarduser);
         final Button singlePlayerButton = findViewById(R.id.singleplayerbutton);
         final Button multiPlayerButton = findViewById(R.id.multiplayergamebutton);
+        final Button infoButton = findViewById(R.id.infobutton);
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), InformationActivity.class);
+                startActivity(intent);
+            }
+        });
         multiPlayerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

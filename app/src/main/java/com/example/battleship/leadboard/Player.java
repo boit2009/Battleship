@@ -1,7 +1,7 @@
 package com.example.battleship.leadboard;
 
 public class Player {
-    private int winvsRobot,winvsUser;
+    private int winvsRobot, winvsUser;
     private String name;
     public Player(String name, int winvsRobot,int winvsUser){
         this.winvsUser = winvsUser;

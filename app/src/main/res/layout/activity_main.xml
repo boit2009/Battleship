@@ -7,14 +7,35 @@
     android:layout_height="match_parent"
     tools:context=".main.MainActivity">
 
-
-    <Button
-        android:id="@+id/profilebutton"
+    <LinearLayout
+        android:id="@+id/upperlayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:weightSum="1"
         android:layout_weight="0.3"
-        android:text="@string/profile"
-        />
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/profilebutton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            style="?android:attr/buttonStyle"
+            android:layout_weight="0.5"
+            android:text="@string/profile"
+            tools:ignore="NestedWeights"
+            />
+        <Button
+            android:id="@+id/infobutton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            style="?android:attr/buttonStyle"
+            android:layout_weight="0.5"
+            android:text="@string/informationbutton"
+            tools:ignore="NestedWeights"
+            />
+
+    </LinearLayout>
+
+
 
 
 
