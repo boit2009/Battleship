@@ -75,10 +75,10 @@ public class Profile extends AppCompatActivity implements VolleyCallback {
 
     @Override
     public void onSuccess(JSONObject result, String mode) throws JSONException {
-        gamesPlayedVsAiTextView.setText("Games played vs robot: "+result.getString("gamesPlayedVsAi"));
-        gamesPlayedVsUserTextView.setText("Games played vs user: "+result.getString("gamesPlayedVsUser"));
-        gamesWonVsAiTextView.setText("Games won vs robot: "+result.getString("gamesWonVsAi"));
-        gamesWonVsUserTextView.setText("Games won vs User: "+result.getString("gamesWonVsUser"));
+        gamesPlayedVsAiTextView.setText("Games played in Single Player: "+result.getString("gamesPlayedVsAi"));
+        gamesPlayedVsUserTextView.setText("Games played in Multiplayer: "+result.getString("gamesPlayedVsUser"));
+        gamesWonVsAiTextView.setText("Games won in Single Player: "+result.getString("gamesWonVsAi"));
+        gamesWonVsUserTextView.setText("Games won in Multiplayer: "+result.getString("gamesWonVsUser"));
         nameTexView.setText("User name: "+result.getString("name"));
     }
 }
