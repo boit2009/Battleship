@@ -66,6 +66,7 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
 
         }else{
             new AlertDialog.Builder(this)
+                    .setCancelable(false)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setTitle(getResources().getString(R.string.backtomenu))
                     .setMessage(getResources().getString(R.string.areyousure))
@@ -215,6 +216,7 @@ public class GridActivity extends AppCompatActivity implements VolleyCallback {
         if(mode.equals("-1")){
             String winner=result.getString("name");
             new AlertDialog.Builder(GridActivity.this)
+                    .setCancelable(false)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setTitle("GAME OVER")
                     .setMessage(winner+ " won")
