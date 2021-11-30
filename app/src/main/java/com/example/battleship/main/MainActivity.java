@@ -16,9 +16,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.battleship.apicalls.UserCalls;
 import com.example.battleship.grid.GridActivity;
 import com.example.battleship.information.InformationActivity;
 import com.example.battleship.leadboard.LeaderBoard;
+import com.example.battleship.network.VolleyCallback;
 import com.example.battleship.profile.Profile;
 import com.example.battleship.R;
 import com.example.battleship.rooms.Rooms;
@@ -27,7 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements VolleyCallback {
 
     private static final int INTERNET_PERMISSION_CODE = 100;
     private JSONObject jObject = null;
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         //get device uniqueID
         String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
+        UserCalls.getProfile(getApplicationContext(),MainActivity.this::onSuccess,"ID",0);
+
 
         //get the neccessary Views
 
@@ -103,4 +107,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onSuccess(JSONObject result, String mode) throws JSONException {
+
+    }
 }
