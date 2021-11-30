@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements VolleyCallback {
         //get device uniqueID
         String ID = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        UserCalls.getProfile(getApplicationContext(),MainActivity.this::onSuccess,"ID",0);
+        UserCalls.getProfile(getApplicationContext(),MainActivity.this::onSuccess,ID,0);
 
 
         //get the neccessary Views
